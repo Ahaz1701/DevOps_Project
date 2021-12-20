@@ -130,6 +130,8 @@ kubectl apply -f manifests
 ``` 
 #### 3. Set up monitoring with Grafana: 
 
+Au moment de la création d'un **dashboard**, on le link avec le serveur `Prometheus` afin de récupérer les informations et de les afficher sous forme de graphiques. 
+
 ![Capture d’écran 2021-12-20 à 17 55 51](https://user-images.githubusercontent.com/57870369/146803741-ac7eb871-48bb-4e94-b0fb-a546078d3995.png)
 
 
