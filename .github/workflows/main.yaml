@@ -20,9 +20,8 @@ jobs:
       redis:
         # Docker Hub image
         image: redis
-        credentials:
-          - username: Ahaz1701
-          - password: ${{secrets.docker_hub_password}}
+        credentials: username: Ahaz1701
+        password: ${{secrets.docker_hub_password}}
         ports:
           # Opens tcp port 6379 on the host and service container
           - 6379:6379
