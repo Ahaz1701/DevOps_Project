@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app
+  name: app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - env:
+            - name: REDIS_HOST
+              value: redis
+          image: taumitrn/projet_devops:latest
+          name: app-container
+          ports:
+            - name: app
+              containerPort: 80
+      restartPolicy: Always
