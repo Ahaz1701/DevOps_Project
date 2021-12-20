@@ -3,6 +3,7 @@
 #### 1. Create a Docker image of our application:
 
 + Nous devons d'abord créer un fichier `Dockerfile` qui va servir à conteneuriser l'application. Pour créer le fichier, on exécute la commande suivante dans le CLI:   
+
   ```
   touch Dockerfile
   ```  
