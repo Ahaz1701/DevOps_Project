@@ -49,6 +49,7 @@ jobs:
           heroku_email: "ahaz1701@gmail.com" # Heroku account email
 
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Cache Docker layers
