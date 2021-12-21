@@ -1,0 +1,30 @@
+version: '3'
+
+networks:
+  back-tier:
+
+services:
+  redis:
+    hostname: "redis"
+    image: redis:alpine
+    container_name: redis_container
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - back-tier
+  app:
+    hostname: "app"
+    image: projet_devops:latest
+    container_name: projet_devops_container
+    environment:
+      REDIS_HOST: redis
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    build: .
+    depends_on:
+      - redis
+
+    networks:
+      - back-tier
