@@ -34,8 +34,12 @@
         state: absent
         path: /home/vagrant/redis-stable.tar.gz
 
+    - name: Install pkg-config
+      command: apt install pkg-config
+      become: true
+
     - name: Setup redis database on the server
-      command: chdir=/home/vagrant/redis-stable make install
+      command: chdir=/home/vagrant/redis-stable/src make install
       become: true
 
     - name: Install packages
@@ -45,6 +49,8 @@
     
     - name: Run redis database
       command: redis-server
+      async: 7777777
+      poll: 0
     
     - name: Test our app
       ansible.builtin.shell: npm test
@@ -55,3 +61,5 @@
       ansible.builtin.shell: npm start 
       args: 
         chdir: /home/vagrant/userapi
+      async: 7777777
+      poll: 0
