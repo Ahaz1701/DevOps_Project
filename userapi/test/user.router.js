@@ -4,6 +4,7 @@ const chaiHttp = require('chai-http')
 const db = require('../src/dbClient')
 const userController = require('../src/controllers/user')
 
+
 chai.use(chaiHttp)
 
 describe('User REST API', () => {
