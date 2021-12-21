@@ -1,0 +1,57 @@
+---
+- hosts: all
+  # Tasks to be executed on these hosts
+  tasks:
+    - name: Download lastest nodejs and npm versions via n
+      get_url:
+        url: https://raw.githubusercontent.com/tj/n/master/bin/n
+        dest: /home/vagrant/n 
+
+    - name: Selecting latest nodejs version
+      ansible.builtin.shell: bash n lts
+      args: 
+        chdir: /home/vagrant
+      become: true
+
+    - name: Install n
+      ansible.builtin.shell: npm install -g n
+      args: 
+        chdir: /home/vagrant
+      become: true
+
+    - name: Download redis database
+      get_url: 
+        url: http://download.redis.io/redis-stable.tar.gz 
+        dest: /home/vagrant
+
+    - name: Unarchive the redis tar file
+      ansible.builtin.unarchive:
+        src: /home/vagrant/redis-stable.tar.gz
+        dest: /home/vagrant
+
+    - name: Delete redis tar file
+      file:
+        state: absent
+        path: /home/vagrant/redis-stable.tar.gz
+
+    - name: Setup redis database on the server
+      command: chdir=/home/vagrant/redis-stable make install
+      become: true
+
+    - name: Install packages
+      ansible.builtin.shell: npm i
+      args:
+        chdir: /home/vagrant/userapi
+    
+    - name: Run redis database
+      command: redis-server
+    
+    - name: Test our app
+      ansible.builtin.shell: npm test
+      args: 
+        chdir: /home/vagrant/userapi
+
+    - name: Start our app
+      ansible.builtin.shell: npm start 
+      args: 
+        chdir: /home/vagrant/userapi
