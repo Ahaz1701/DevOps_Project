@@ -10,6 +10,10 @@ jobs:
   # CI part
   test:
     runs-on: ubuntu-latest
+    # Define `working-directory` if you application is in a subfolder
+    defaults:
+      run:
+        working-directory: userapi
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
@@ -47,6 +51,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "ahaz-taumi-devops-project" # Must be unique in Heroku
           heroku_email: "ahaz1701@gmail.com" # Heroku account email
+          appdir: userapi # Define appdir if you application is in a subfolder
 
   build:
     needs: test
@@ -74,7 +79,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./Dockerfile
+          file: ./../Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ahaz-taumi-devops-project:latest
