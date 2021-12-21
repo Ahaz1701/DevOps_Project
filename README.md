@@ -1,3 +1,23 @@
+## Getting started 
+
+1. Get the sources:
+```
+git clone https://github.com/Ahaz1701/DevOps_Project.git && cd DevOps_Project 
+``` 
+2.
+3. Launch Redis database with Docker:
+```
+docker-compose up -d redis
+```
+
+4. Start the application:
+```
+npm start
+```
+
+5. Access the application on your web browser on http://localhost:3000
+
+
 ### 4. Build Docker image of your application 
 
 #### 1. Create a Docker image of our application:
@@ -25,7 +45,7 @@ RUN npm install
 
 (Facultatif) On expose notre conteneur sur le port 80 par défaut.
 ```
-EXPOSE 80
+EXPOSE 3000
 ```
 
 Enfin, on lance l'application du conteneur. 
@@ -56,6 +76,8 @@ Et enfin, on push l'image sur Docker Hub:
 ```
 docker push <ACCOUNT_ID>/<IMAGE_NAME>
 ```
+![Capture d’écran 2021-12-21 à 14 16 45](https://user-images.githubusercontent.com/57870369/146936344-71d60ee2-ee66-4295-af92-7890aef67e4b.png)
+
 
 ### 5. Make container orchestration using Docker Compose
 
@@ -102,6 +124,19 @@ Pour lancer l'application, on utilise la commande suivante:
 ```
 docker-compose up
 ```
+
+### 6. Make Docker orchestration using Kubernetes
+We have used `Kompose` to convert our `docker-compose` file into Kubernetes resources using the following command: 
+```
+kompose convert 
+kubectl apply -f .
+```
+
+Using the following command, we have our Kubernetes deployment: 
+```
+kubectl apply -f k8s/
+```
+
 
 
 ### 8. Implement Monitoring to your containerized application
