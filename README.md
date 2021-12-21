@@ -126,6 +126,12 @@ docker-compose up
 ```
 
 ### 6. Make Docker orchestration using Kubernetes
+
+Start Minikube: 
+```
+minikube start 
+```
+
 We have used `Kompose` to convert our `docker-compose` file into Kubernetes resources using the following command: 
 ```
 kompose convert 
