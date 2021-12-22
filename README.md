@@ -1,13 +1,20 @@
+# ING4-DevOps-Project
+
 ## Getting started 
 
 1. Get the sources:
 ```
 git clone https://github.com/Ahaz1701/DevOps_Project.git && cd DevOps_Project 
-``` 
-2.
-3. Launch Redis database with Docker:
+```
+
+2. Launch `Redis` database with Docker:
 ```
 docker-compose up -d redis
+```
+
+3. Start the test:
+```
+npm test
 ```
 
 4. Start the application:
@@ -16,6 +23,78 @@ npm start
 ```
 
 5. Access the application on your web browser on http://localhost:3000
+
+
+### 1. Create a web application
+
+Nous avons utilisé l'application web mise à disposition, tout en l'**enrichissant** et en la **complétant**. C'est une application `nodejs` qui stocke les données sur une base de données `Redis`.
+
+**Elle implémente**:
+
+- une API utilisateur CRUD simple
+- un stockage des données dans une base de données Redis
+- des tests: unitaires, API, configuration, connexion
+
+Nous avons implémenté des **tests supplémentaires**, en voici quelques exemples:
+
+![image](https://user-images.githubusercontent.com/61588921/147010935-e415e875-ba84-4cb7-9272-b543f5c78b91.png)
+![image](https://user-images.githubusercontent.com/61588921/147011018-c7d0dc99-e200-4aa3-b69b-408945a82593.png)
+
+### 2. Apply CI/CD pipeline
+
+#### 1. Pour la partie **intégration continue**, nous avons utilisé `GitHub Actions`.
+
+Nous avons tout d'abord créé un dossier `.github/workflows` à la racine de notre projet, pour accueillir les configurations de notre workflow.
+
+Nous avons décidé d'implémenter l'**intégration continue** seulement pour la branche `main` de notre projet. Il s'agit de la branche principale, et par convention, elle reçoit seulement les fonctionnalités prête pour la production.
+
+![image](https://user-images.githubusercontent.com/61588921/147011872-06dc2c5d-a154-4017-b73a-831f84ce7890.png)
+
+Ensuite, nous avons choisi un serveur `Ubuntu Linux` pour exécuter nos workflows lorsqu'ils sont déclenchés, et nous avons précisé le **répertoire de travail** `userapi`.
+
+![image](https://user-images.githubusercontent.com/61588921/147012106-e1214742-e01d-4bec-aca8-7b62413aa4ee.png)
+
+Nous avons également précisé au serveur d'utiliser `nodejs`, ainsi que d'exécuter le service `Redis` (issu d'une image Docker), pour pouvoir lancer nos **tests**.
+
+![image](https://user-images.githubusercontent.com/61588921/147012589-f1d72d61-7017-4872-b55e-1e62a682ad57.png)
+
+Une fois `Redis` et `nodejs` d'installés et configurés, le serveur linux **installera les packages** nécessaires à l'application, et **lancera les tests** que nous avons implémenté.
+
+![image](https://user-images.githubusercontent.com/61588921/147013250-ceb48bf3-980f-41ad-9bff-c7783db18c7b.png)
+
+#### 2. Pour la partie **déploiement continu**, nous avons utilisé `Heroku`.
+
+Tout d'abord, nous avons créé un compte et déployé notre application en ligne: https://ahaz-taumi-devops-project.herokuapp.com/
+
+![image](https://user-images.githubusercontent.com/61588921/147013591-b82cb63c-fc61-4102-8c66-4e4ff78601f6.png)
+
+Ensuite, nous avons ajouté les configurations nécessaires dans notre fichier `run.yaml`, pour permettre le **déploiement continue** en plus de l'**intégration continue**. Pour **lancer le déploiement**, nous avons indiqué au serveur Ubuntun linux qu'il était nécessaire que les **tests implémentés passent avec succès**.
+
+![image](https://user-images.githubusercontent.com/61588921/147014393-aef3d6cd-5de7-4c0f-9b8d-8e6d943ef8b8.png)
+
+Une fois ces tests complétés, nous configurons `Heroku` pour le **déploiement continue**. Il est nécessaire de renseigner l'**adresse mail** du compte `Heroku`, le **nom unique** de son **projet**, de fournir sa **clé API**, et de renseigner le **répertoire de travail**.
+
+![image](https://user-images.githubusercontent.com/61588921/147014586-e651e464-5943-4486-90e2-e27bea9b107d.png)
+
+La **clé API** se trouve dans les **settings** de son compte sur le site d'`Heroku`, et il est ensuite nécessaire de créer un `Action secret` sur `GitHub`, pour la stocker en toute **sécurité**.
+
+![image](https://user-images.githubusercontent.com/61588921/147014767-ff33252c-85b7-477e-a10f-5901cd0c1dc3.png)
+
+#### 3. Maitenant, à chaque fois qu'une action du type pull request se déclenche sur la branche `main`, nous pouvons observer dans l'onglet `Actions` de `GitHub`, si l'**intégration continue** et le **déploiement continue** de notre projet se sont bien déroulé.
+
+![image](https://user-images.githubusercontent.com/61588921/147015170-1fc2165b-e685-4d0a-b1ea-0f7997c8774e.png)
+
+![image](https://user-images.githubusercontent.com/61588921/147015223-d5909465-255b-4420-8058-1eeb723632b4.png)
+
+#### 4. Nous avons également réalisé un bonus.
+
+
+
+
+
+### 3. Configure and provision a virtual environment and run your application using the IaC approach
+
+
 
 
 ### 4. Build Docker image of your application 
