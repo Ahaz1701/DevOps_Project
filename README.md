@@ -40,6 +40,11 @@ We have implemented additional **tests**, here are some examples:
 ![image](https://user-images.githubusercontent.com/61588921/147010935-e415e875-ba84-4cb7-9272-b543f5c78b91.png)
 ![image](https://user-images.githubusercontent.com/61588921/147011018-c7d0dc99-e200-4aa3-b69b-408945a82593.png)
 
+When we run `npm test` in the `userapi` folder, we can see that all our tests pass with **success**.
+
+![image](https://user-images.githubusercontent.com/61588921/147142038-23b7f244-fd5a-4cd3-9427-40dce8975c82.png)
+
+
 ### 2. Apply CI/CD pipeline
 
 #### 1. For the **continuous integration** part, we used `GitHub Actions`.
@@ -89,8 +94,13 @@ The **API key** can be found in the **settings** of his account on the `Heroku` 
 
 #### 4. We also made a bonus.
 
+We have added in our `main.yml` file, a `build` section, in order to **automatically build and push** our `docker image` on our `Docker hub` **online repository**. To **start the build**, we told the Ubuntun linux server that it was necessary for the **implemented tests to pass** too.
 
+![image](https://user-images.githubusercontent.com/61588921/147142920-b65859a4-76ff-427c-b295-37288c7a3d07.png)
 
+To **automatically connect** to our `Docker hub` repository, we also created two `Secret Actions`.
+
+![image](https://user-images.githubusercontent.com/61588921/147143413-e7ed3e59-3c0f-428a-a2f7-8d7a968a9161.png)
 
 
 ### 3. Configure and provision a virtual environment and run your application using the IaC approach
