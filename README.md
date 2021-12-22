@@ -187,11 +187,10 @@ Thus, we can access our **web application** via the **private IP address** and t
 
 #### 1. Create a Docker image of our application:
 
-+ First we need to create a Dockerfile which will be used to containerize the application. To create the file, we run the following command in the CLI:   
-
-  ```
-  touch Dockerfile
-  ```  
+First we need to create a Dockerfile which will be used to containerize the application. To create the file, we run the following command in the CLI:   
+```
+touch Dockerfile
+```  
 
 Then the application dependencies are installed in the container. 
 
