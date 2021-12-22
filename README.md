@@ -424,7 +424,7 @@ Our email adresses : antoine.hazebrouck@edu.ece.fr and tommydesirevalentin.tran@
 | Containerisation with Docker                                    |   D       |    +1     | :white_check_mark: |
 | Orchestration with Docker Compose                               |   DC      |    +2     | :white_check_mark: |
 | Orchestration with Kubernetes	                                  |   KUB     |    +3     | :white_check_mark: |
-| Service mesh using Istio                                        |   IST     |    +0     | :white_check_mark: |
+| Service mesh using Istio                                        |   IST     |    +0     |                    |
 | Infrastructure as code using Ansible                            |   IAC     |    +3     | :white_check_mark: |
 | Monitoring                                                      |   MON     |    +2     | :white_check_mark: |
 | Accurate project documentation in README.md file                |   DOC     |    +3     | :white_check_mark: |
