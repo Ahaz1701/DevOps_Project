@@ -94,7 +94,92 @@ La **clé API** se trouve dans les **settings** de son compte sur le site d'`Her
 
 ### 3. Configure and provision a virtual environment and run your application using the IaC approach
 
+#### 1. Dans un premier temps, nous avons créé un dossier `iac` ainsi qu'un fichier `Vagrantfile`, afin d'y décrire le **type de machine souhaité** pour **exécuter notre application**.
 
+Nous avons indiqué vouloir un `serveur Ubuntu linux`, et plus précisemment la machine `ubuntu/trusty64` (la plus populaire).
+
+![image](https://user-images.githubusercontent.com/61588921/147016348-f07e826a-15e5-4100-a535-3056b4adb7ff.png)
+
+Ensuite, nous lui avons défini une **adresse IP privée**, un **nom**, une quantité de **RAM** et un nombre de **CPUs**.
+
+![image](https://user-images.githubusercontent.com/61588921/147016583-00843015-31d7-4b6d-b13f-f02ecc4b613b.png)
+
+#### 2. Dans un second temps, nous avons provisionné notre serveur linux avec `Ansible`.
+
+![image](https://user-images.githubusercontent.com/61588921/147017102-2472ecd9-25f5-4537-a651-7ee36fdd8c56.png)
+
+Pour ce faire, nous souhaitons **installer** et **configurer** :
+- un langage de programmation
+- une base de données (`Redis` dans notre cas)
+- notre application (via un `sync folder`)
+- un bilan de santé de notre application
+
+Nous avons créé un dossier `playbooks` ainsi qu'un fichier `run.yml`. Dans celui-ci, nous avons indiqué toutes les **tâches à suivre et à exécuter** pour provisionner notre **serveur ubuntu** comme décrit précédemment.
+
+Tout d'abord, nous voulons **installer** la dernière version de `nodejs` et de `npm` pour notre application. Pour ce faire, nous **téléchargeons et exécutons** le **manager de versions** `nodejs`, `n`.
+
+![image](https://user-images.githubusercontent.com/61588921/147017716-833756ca-47a5-4b04-9b43-bff8079b41da.png)
+
+Ensuite, nous voulons **installer et configurer** notre base de données `Redis`.
+
+![image](https://user-images.githubusercontent.com/61588921/147017871-1556a4a5-62b1-4929-ab9d-444c28f1536b.png)
+
+Nous **installons** également les packages nécessaires au bon fonctionnement de notre application, **application** qui est **synchronisée à notre serveur linux** via un `sync folder`.
+
+![image](https://user-images.githubusercontent.com/61588921/147018136-98681da8-08ea-4104-8de2-f5fce5c13d3d.png)
+
+![image](https://user-images.githubusercontent.com/61588921/147018174-9b6b7685-7e3a-4b19-a8b0-223ea8bf0493.png)
+
+Enfin, nous souhaitons lancer notre base de données `Redis`,
+
+![image](https://user-images.githubusercontent.com/61588921/147018273-9bd5304d-0330-4755-b774-3112005a9348.png)
+
+effectuer les **tests de notre application**,
+
+![image](https://user-images.githubusercontent.com/61588921/147018358-4ac3fe48-7ee5-4576-98f5-5dfc4bcdfe8f.png)
+
+et la **lancer**.
+
+![image](https://user-images.githubusercontent.com/61588921/147018391-4b79136b-860c-48a2-b39e-f980a56368eb.png)
+
+Nous avons défini `async` et `poll` pour exécuter plusieurs tâches en parallèles, au sein de notre **playbook**.
+
+#### 3. Nous avons également réalisé un bonus.
+
+Nous avons **implémenté 2 tests** dans le fichier `webapp.rb` présent dans le dossier `test`:
+- nous vérifions que `Redis` est bien lancé sur le port **6379**
+- nous vérifions que notre application est bien lancée sur le port **3000**
+
+![image](https://user-images.githubusercontent.com/61588921/147019590-9f982ab3-8f16-486f-b8ac-fee11585a6df.png)
+
+Pour **exécuter ces tests**, nous avons dû télécharger un plugin de vagrant:
+```
+vagrant plugin install vagrant-serverspec
+```
+
+et ajouter ceci à notre `Vagrantfile`:
+
+![image](https://user-images.githubusercontent.com/61588921/147019729-cadc1b57-3c30-48b3-b23f-17a644f354a0.png)
+
+#### 4. Enfin, nous créons notre serveur linux via la commande ```vagrant up```
+
+![image](https://user-images.githubusercontent.com/61588921/147019973-c32930d8-8a7a-4cb6-a8ca-056b29179f5d.png)
+
+Nous checkons que notre **VM** est **lancée**,
+
+![image](https://user-images.githubusercontent.com/61588921/147020061-24e9895c-62e5-4986-af1b-ac79a1cd78f4.png)
+
+et nous l'**approvisionnons** avec nos dernières modifications. Toutes les **tâches** sont exécutées :
+
+![image](https://user-images.githubusercontent.com/61588921/147020487-4c141d81-cc3f-4fd6-b52b-fb595cf25728.png)
+
+et nos **tests** sont passés avec **succès**.
+
+![image](https://user-images.githubusercontent.com/61588921/147020575-88706f65-4ddf-4637-8fdf-00ed4cc21213.png)
+
+Ainsi, nous pouvons accéder à notre **application web** via l'**adresse IP privée** et le **port** renseignés dans le fichier `Vagrantfile`.
+
+![image](https://user-images.githubusercontent.com/61588921/147020777-8f10b929-ba2c-40b8-b967-316a5da4fe24.png)
 
 
 ### 4. Build Docker image of your application 
