@@ -304,6 +304,7 @@ docker-compose up
 
 and everything is **going well**
 
+![image](https://user-images.githubusercontent.com/61588921/147153525-71f793fc-738d-467e-84ab-f0fda70e62b3.png)
 
 
 
