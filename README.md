@@ -356,6 +356,71 @@ minikube service devops-project-service
 
 Our Kubernetes deployment is successful.
 
+
+### 7. Make a service mesh using Istio
+
+In this part we created a service `Mesh` using `Istio`. It provides a uniform way to **secure**, **connect** and **monitor microservices**.
+
+First, we have to download `Istio` and apply some configurations. The first thing to do, is to use the **appropriate configuration profile**:
+```
+istioctl install --set profile=demo -y
+```
+
+Then, we have to add a namespace label to instruct `Istio` to automatically inject `Envoy sidecar proxies` when we deploy our application:
+```
+kubectl label namespace default istio-injection=enabled
+```
+
+#### 1. Create ressources
+
+We need to create **two ressources**. The first is the **gateway** that we describe on the `gateway.yml` file.
+```
+kubectl create -f /istio/gateway.yml
+```
+
+The second one, is the **services** and the **different versions** of our web app.
+```
+kubectl create -f /istio/services.yml
+```
+
+#### 2. Deploy services
+
+After that, we have to **deploy** our ressources previously created.
+```
+kubectl apply -f /istio/gateway.yml
+kubectl apply -f /istio/services.yml
+```
+
+![image](https://user-images.githubusercontent.com/61588921/147160108-04d42161-67ff-4bfd-878c-dbacaed0754d.png)
+
+![image](https://user-images.githubusercontent.com/61588921/147160132-bcbe6a62-9351-4ce9-a5bb-7926fefd2cf2.png)
+
+
+And then, we can see ours **services**, and among others, their **ip address** and **port**:
+```
+kubectl get services
+```
+
+![image](https://user-images.githubusercontent.com/61588921/147160179-f7b03806-bd1e-4c57-8d94-0405777ee920.png)
+
+#### 3. Kiali
+
+After installing `Kiali`, we have installed the other **addons** and wait for them to be depployed.
+```
+kubectl apply -f samples/addons
+kubectl rollout status deployment/kiali -n istio-system
+```
+
+And we also forward the **port 20001** to access the `Kiali` console, at http://localhost:20001/kiali/console/overview
+```
+kubectl port-forward svc/kiali -n istio-system 20001
+```
+
+![image](https://user-images.githubusercontent.com/61588921/147161845-c71494c7-1aa6-4627-b271-db9b8ce4f1cc.png)
+
+Unfortunately, we observe that our **deployment did not work** because we encountered many problems with the configuration of `Istio` and the **.yml files**.
+
+
 ### 8. Implement Monitoring to your containerized application
 
 #### 1. Install Prometheus and Grafana:
@@ -424,7 +489,7 @@ Our email adresses : antoine.hazebrouck@edu.ece.fr and tommydesirevalentin.tran@
 | Containerisation with Docker                                    |   D       |    +1     | :white_check_mark: |
 | Orchestration with Docker Compose                               |   DC      |    +2     | :white_check_mark: |
 | Orchestration with Kubernetes	                                  |   KUB     |    +3     | :white_check_mark: |
-| Service mesh using Istio                                        |   IST     |    +0     |                    |
+| Service mesh using Istio                                        |   IST     |    +1     |                    |
 | Infrastructure as code using Ansible                            |   IAC     |    +3     | :white_check_mark: |
 | Monitoring                                                      |   MON     |    +2     | :white_check_mark: |
 | Accurate project documentation in README.md file                |   DOC     |    +3     | :white_check_mark: |
