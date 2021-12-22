@@ -327,7 +327,7 @@ kubectl get svc
 
 Start the service:
 ```
-kubectl service devops-project-service
+minikube service devops-project-service
 ```
 ![image](https://user-images.githubusercontent.com/57870369/147014548-f4f4e7a9-5d85-4b01-bd49-c1b1d68e13a7.png)
 
@@ -341,19 +341,28 @@ Our Kubernetes deployment is successful.
 
 #### 1. Install Prometheus and Grafana:
 
-On récupère les fichiers sources sur leurs documentations officielles respectives et on les range dans un dossier `grafana` et `prometheus`.    
+On a créé un dossier `monitoring` pour cette partie là. 
+
+On récupère les fichiers sources sur leurs documentations officielles respectives et on les range dans un dossier `grafana` et `prometheus` que nous plaçons dans `monitoring`.    
 + Pour Grafana: https://grafana.com/docs/grafana/latest/installation/kubernetes/
 + Pour Prometheus: https://github.com/kubernetes-sigs/prometheus-adapter
 
 Pour déployer ces services, on utilise les commandes suivantes: 
 ```
 kubectl apply -f grafana
+```
+<img width="567" alt="Capture d’écran 2021-12-22 à 18 09 14" src="https://user-images.githubusercontent.com/57870369/147129715-8a3387b6-a716-46ce-93e1-d851f1744eba.png">
+
+```
 kubectl apply -f prometheus
 ``` 
+<img width="651" alt="Capture d’écran 2021-12-22 à 18 10 01" src="https://user-images.githubusercontent.com/57870369/147129792-158f5ffa-4bc3-416c-92d1-97a549ca5f5a.png">
+
 
 #### 2. Set up monitoring with Prometheus:
 
 Pour setup le monitoring avec `Prometheus`, il faut que nous installions les `metrics` contenues dans le GitHub ci-dessous pour que `Prometheus` aille chercher l'information sur le cluster Kubernetes. 
+On dispose des dossiers `setup` et `manifests` que l'on utilise pour chercher nos données. 
 ```
 https://github.com/kubernetes/kube-state-metrics.git 
 ``` 
@@ -361,12 +370,25 @@ Il faut ensuite déployer les `metrics` avec la commande:
 ```
 kubectl apply -f setup
 kubectl apply -f manifests
-``` 
+```
+![Capture d’écran 2021-12-22 à 18 27 18](https://user-images.githubusercontent.com/57870369/147131896-f8e4b815-e85b-4ad3-abae-2d094f021840.png)
+
 #### 3. Set up monitoring with Grafana: 
 
-Au moment de la création d'un **dashboard**, on le link avec le serveur `Prometheus` afin de récupérer les informations et de les afficher sous forme de graphiques. 
+Pour accéder à Grafana, on utilise la commande suivante: 
+```
+kubectl port-forward service/grafana 3000 -n monitoring
+```
 
-![Capture d’écran 2021-12-20 à 17 55 51](https://user-images.githubusercontent.com/57870369/146803741-ac7eb871-48bb-4e94-b0fb-a546078d3995.png)
+Cela nous amène à la page de Grafana où nous devons nous connecter avec un compte à chaque instance de l'application. 
+
+![Capture d’écran 2021-12-22 à 18 11 26](https://user-images.githubusercontent.com/57870369/147129953-969d6a55-aed8-4001-8bd0-8a8a337db5db.png)
+
+Au moment de la création d'un **dashboard**, nous avons importé un dashboard déjà opérationnel en saisissant l'id **10856**, on le link avec le serveur `Prometheus` afin de récupérer les informations et de les afficher sous forme de graphiques. 
+
+![Capture d’écran 2021-12-22 à 18 14 45](https://user-images.githubusercontent.com/57870369/147130380-d933e060-f494-4497-83ed-4bda6834aa7a.png)
+![Capture d’écran 2021-12-22 à 18 15 29](https://user-images.githubusercontent.com/57870369/147130468-cc8facd9-d01f-427b-ae6c-ba6840d8448b.png)
+![Capture d’écran 2021-12-22 à 18 29 04](https://user-images.githubusercontent.com/57870369/147132123-6e1fe271-6d03-4b50-89a8-0e1f077c2893.png)
 
 ## Grading 
 
