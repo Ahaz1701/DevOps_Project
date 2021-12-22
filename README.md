@@ -373,12 +373,15 @@ kubectl label namespace default istio-injection=enabled
 
 #### 1. Create ressources
 
++ [gateway.yml](istio/gateway.yml)
++ [services.yml](istio/services.yml)
+
 We need to create **two ressources**. The first is the **gateway** that we describe on the `gateway.yml` file.
 ```
 kubectl create -f /istio/gateway.yml
 ```
 
-The second one, is the **services** and the **different versions** of our web app.
+The second one, is the **services** with the **different versions** of our web app.
 ```
 kubectl create -f /istio/services.yml
 ```
