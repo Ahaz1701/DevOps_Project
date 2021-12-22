@@ -187,7 +187,7 @@ Thus, we can access our **web application** via the **private IP address** and t
 
 #### 1. Create a Docker image of our application:
 
-First we need to create a Dockerfile which will be used to containerize the application. To create the file, we run the following command in the CLI:   
+First we need to create a `Dockerfile` which will be used to containerize the application, and a `.dockerignore` file to **ignore** all the files and folders that do not need to be included in the image. To create the file, we run the following command in the CLI:   
 ```
 touch Dockerfile
 ```  
@@ -210,7 +210,7 @@ We install the application's dependencies.
 ```
 RUN npm install
 ```
-We expose our container on port 3000 by default.
+We expose our container on **port 3000** by default.
 ```
 EXPOSE 3000
 ```
@@ -228,7 +228,7 @@ docker build . -t <IMAGE_NAME>
 
 #### 3. Push the image to Docker Hub:
 
-To push the image to Docker Hub, you must first connect to Docker Hub:
+To push the image to `Docker Hub`, you must first connect to Docker Hub:
 ```
 docker login
 ```
@@ -238,7 +238,7 @@ Then you have to tag the image with the right name:
 docker image tag projet_devops taumitrn/projet_devops:latest>
 ```
 
-And finally, we push the image on Docker Hub:
+And finally, we push the image on `Docker Hub`: https://hub.docker.com/r/taumitrn/projet_devops
 
 ```
 docker push taumitrn/projet_devops
@@ -250,13 +250,13 @@ docker push taumitrn/projet_devops
 
 #### 1. Creating the Redis service
 
-We use the `Redis` service as a database for our application. So we need to configure a Redis container. 
+We use the `Redis` service as a database for our application. So we need to configure a `Redis` container. 
 First of all, we need to create a `docker-compose.yaml` file in which we will define Redis:
 ```
 touch docker-compose.yaml
 ```
 
-In the `services` part of the file, we define Redis with the following lines of code:
+In the `services` part of the file, we define `Redis` with the following lines of code (default port 6379):
 ```
 redis:
     hostname: "redis"
@@ -269,7 +269,7 @@ redis:
       - back-tier
 ```
 
-And in the `app` part of the file, we implement the following lines of code:
+And in the `app` part of the file, we implement the following lines of code (server listenning on port 3000):
 ```
 hostname: "app"
     image: projet_devops:latest
@@ -291,6 +291,11 @@ To launch the application, we use the following command:
 ```
 docker-compose up
 ```
+
+and everything is **going well**
+
+
+
 
 ### 6. Make Docker orchestration using Kubernetes
 
@@ -350,7 +355,7 @@ We get the source files from their respective official documentations and put th
 + Pour Grafana: https://grafana.com/docs/grafana/latest/installation/kubernetes/
 + Pour Prometheus: https://github.com/kubernetes-sigs/prometheus-adapter
 
-Pour déployer ces services, on utilise les commandes suivantes: 
+To deploy these services, we use the following commands: 
 ```
 kubectl apply -f grafana
 ```
@@ -392,6 +397,12 @@ When creating a **dashboard**, we imported an already operational dashboard by e
 ![Capture d’écran 2021-12-22 à 18 14 45](https://user-images.githubusercontent.com/57870369/147130380-d933e060-f494-4497-83ed-4bda6834aa7a.png)
 ![Capture d’écran 2021-12-22 à 18 15 29](https://user-images.githubusercontent.com/57870369/147130468-cc8facd9-d01f-427b-ae6c-ba6840d8448b.png)
 ![Capture d’écran 2021-12-22 à 18 29 04](https://user-images.githubusercontent.com/57870369/147132123-6e1fe271-6d03-4b50-89a8-0e1f077c2893.png)
+
+
+## Authors :
+HAZEBROUCK Antoine & TRAN Tommy from SI Group 2 FR Section.  
+Our email adresses : antoine.hazebrouck@edu.ece.fr and tommydesirevalentin.tran@edu.ece.fr 
+
 
 ## Grading 
 
