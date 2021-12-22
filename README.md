@@ -291,23 +291,51 @@ docker-compose up
 
 ### 6. Make Docker orchestration using Kubernetes
 
-Start Minikube: 
+We have created a folder `k8s` for this part. It is composed of the following folders: `deployments`, `services` and `volumes`.  
+In the `deployments` folder we have: 
++ [Node app deployment](k8s/deployments/node-app-deployment.yaml)
++ [Redis deployment](k8s/deployments/redis-deployment.yaml)
+
+In the `services` folder we have:
++ [Node app service](k8s/services/node-app-service.yaml)
++ [Redis service](k8s/services/redis-service.yaml)
+
+In the `volumes` folder we have:
++ [Redis volume](k8s/volumes/redis-volume.yaml)
+
+First, we need to start `minikube`: 
 ```
 minikube start 
-```
-
-We have used `Kompose` to convert our `docker-compose` file into Kubernetes resources using the following command: 
-```
-kompose convert 
-kubectl apply -f .
 ```
 
 Using the following command, we have our Kubernetes deployment: 
 ```
 kubectl apply -f k8s/
 ```
+or apply to each folder individually: 
+```
+kubectl apply -f k8s/deployments
+kubectl apply -f k8s/services
+kubectl apply -f k8s/volumes
+```
 
+Find the name of the service: 
+```
+kubectl get svc
+```
+![image](https://user-images.githubusercontent.com/57870369/147014509-74101c04-db1c-4091-9e39-66f2e8e2e413.png)
 
+Start the service:
+```
+kubectl service devops-project-service
+```
+![image](https://user-images.githubusercontent.com/57870369/147014548-f4f4e7a9-5d85-4b01-bd49-c1b1d68e13a7.png)
+
+![Capture d’écran 2021-12-22 à 01 26 05](https://user-images.githubusercontent.com/57870369/147014639-f3a1bb54-bb94-4645-917c-1ab27cd40bec.png)
+
+![Capture d’écran 2021-12-22 à 01 26 25](https://user-images.githubusercontent.com/57870369/147014665-91485a3d-5931-46fe-b6d8-cb07f62e7f30.png)
+
+Our Kubernetes deployment is successful.
 
 ### 8. Implement Monitoring to your containerized application
 

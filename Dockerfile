@@ -1,6 +1,8 @@
 FROM node:14.17.5-alpine
 
-COPY . .
+WORKDIR /usr/src/app
+
+COPY userapi . 
 
 RUN npm install
 

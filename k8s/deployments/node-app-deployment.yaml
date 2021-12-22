@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-project-deployment-v0.6.0
+  labels:
+    app: web
+    version: v0.6.0
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+      version: v0.6.0
+  template:
+    metadata:
+      labels:
+        app: web
+        version: v0.6.0
+    spec:
+      containers:
+        - name: web
+          image: taumitrn/projet_devops:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REDIS_HOST
+              value: redis-service
+            - name: REDIS_PORT
+              value: '6379'
