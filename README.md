@@ -423,9 +423,11 @@ Our email adresses : antoine.hazebrouck@edu.ece.fr and tommydesirevalentin.tran@
 | Continuous Integration and Continuous Delivery (and Deployment) |   CICD    |    +3     | :white_check_mark: |
 | Containerisation with Docker                                    |   D       |    +1     | :white_check_mark: |
 | Orchestration with Docker Compose                               |   DC      |    +2     | :white_check_mark: |
-| Orchestration with Kubernetes	                                  |   KUB     |    +4     | :white_check_mark: |
-| Service mesh using Istio                                        |   IST     |    +2     | :white_check_mark: |
-| Infrastructure as code using Ansible                            |   IAC     |    +4     | :white_check_mark: |
+| Orchestration with Kubernetes	                                  |   KUB     |    +3     | :white_check_mark: |
+| Service mesh using Istio                                        |   IST     |    +0     | :white_check_mark: |
+| Infrastructure as code using Ansible                            |   IAC     |    +3     | :white_check_mark: |
 | Monitoring                                                      |   MON     |    +2     | :white_check_mark: |
 | Accurate project documentation in README.md file                |   DOC     |    +3     | :white_check_mark: |
+| Bonus: Build and push docker image automatically                |   BNS     |    +1     | :white_check_mark: |
+| Bonus: Testing Ansible roles with serverspec                    |   BNS     |    +1     | :white_check_mark: |
 
