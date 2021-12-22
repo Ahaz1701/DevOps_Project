@@ -1,0 +1,49 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts: all
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: ahaz-taumi-devops-project-destination
+spec:
+  host: ahaz-taumi-devops-project
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ahaz-taumi-devops-project
+spec:
+  hosts: all
+  gateways:
+  - gateway
+  http:
+    - route:
+      - destination:
+          subset: v1
+          host: ahaz-taumi-devops-project
+          port:
+            number: 3000
+        weight: 50
+      - destination:
+          subset: v2
+          host: ahaz-taumi-devops-project
+          port:
+            number: 3000
+        weight: 50

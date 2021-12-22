@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ahaz-taumi-devops-project-account
+  labels:
+    account: ahaz-taumi-devops-project
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ahaz-taumi-devops-project
+  labels:
+    app: ahaz-taumi-devops-project
+    service: ahaz-taumi-devops-project
+spec:
+  ports:
+  - name: http
+    port: 3000
+    targetPort: 3000
+  selector:
+    app: ahaz-taumi-devops-project
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ahaz-taumi-devops-project-v1
+  labels:
+    app: ahaz-taumi-devops-project
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ahaz-taumi-devops-project
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: ahaz-taumi-devops-project
+        version: v1
+    spec:
+      serviceAccountName: ahaz-taumi-devops-project-account
+      containers:
+      - name: ahaz-taumi-devops-project
+        image: taumitrn/projet_devops
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: LOG_DIR
+          value: "/tmp/logs"
+        ports:
+        - containerPort: 9080
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: wlp-output
+          mountPath: /opt/ibm/wlp/output
+        securityContext:
+          runAsUser: 1000
+      volumes:
+      - name: wlp-output
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ahaz-taumi-devops-project-v2
+  labels:
+    app: ahaz-taumi-devops-project
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ahaz-taumi-devops-project
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: ahaz-taumi-devops-project
+        version: v2
+    spec:
+      serviceAccountName: ahaz-taumi-devops-project-account
+      containers:
+      - name: ahaz-taumi-devops-project
+        image: taumitrn/projet_devops
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: LOG_DIR
+          value: "/tmp/logs"
+        ports:
+        - containerPort: 9080
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: wlp-output
+          mountPath: /opt/ibm/wlp/output
+        securityContext:
+          runAsUser: 1000
+      volumes:
+      - name: wlp-output
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
