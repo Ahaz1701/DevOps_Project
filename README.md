@@ -401,5 +401,6 @@ Au moment de la création d'un **dashboard**, nous avons importé un dashboard d
 | Orchestration with Kubernetes	                                  |   KUB     |    +4     | :white_check_mark: |
 | Service mesh using Istio                                        |   IST     |    +2     | :white_check_mark: |
 | Infrastructure as code using Ansible                            |   IAC     |    +4     | :white_check_mark: |
+| Monitoring                                                      |   MON     |    +2     | :white_check_mark: |
 | Accurate project documentation in README.md file                |   DOC     |    +3     | :white_check_mark: |
 
