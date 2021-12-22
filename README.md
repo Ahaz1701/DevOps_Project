@@ -368,4 +368,16 @@ Au moment de la création d'un **dashboard**, on le link avec le serveur `Promet
 
 ![Capture d’écran 2021-12-20 à 17 55 51](https://user-images.githubusercontent.com/57870369/146803741-ac7eb871-48bb-4e94-b0fb-a546078d3995.png)
 
+## Grading 
+
+| Subject                                                         |   Code    | Max. grade|Done|
+|:----------------------------------------------------------------|:---------:|:---------:|:---------|
+| Enriched web application with automated tests                   |   APP     |    +1     | :white_check_mark: |
+| Continuous Integration and Continuous Delivery (and Deployment) |   CICD    |    +3     | :white_check_mark: |
+| Containerisation with Docker                                    |   D       |    +1     | :white_check_mark: |
+| Orchestration with Docker Compose                               |   DC      |    +2     | :white_check_mark: |
+| Orchestration with Kubernetes	                                  |   KUB     |    +4     | :white_check_mark: |
+| Service mesh using Istio                                        |   IST     |    +2     | :white_check_mark: |
+| Infrastructure as code using Ansible                            |   IAC     |    +4     | :white_check_mark: |
+| Accurate project documentation in README.md file                |   DOC     |    +3     | :white_check_mark: |
 
